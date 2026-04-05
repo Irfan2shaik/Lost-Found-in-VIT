@@ -6,7 +6,7 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.11.0/firebas
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyB1fXNc1Gb5gnya2Si-RubFchV3Q4WVYDY",
+    apiKey: "",
     authDomain: "lost-and-found-a6dcc.firebaseapp.com",
     databaseURL: "https://lost-and-found-a6dcc-default-rtdb.firebaseio.com",
     projectId: "lost-and-found-a6dcc",
