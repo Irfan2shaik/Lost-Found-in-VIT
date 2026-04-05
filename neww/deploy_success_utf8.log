@@ -1,0 +1,7 @@
+﻿
+[1m[37m===[39m Deploying to 'lost-and-found-a6dcc'...[22m
+
+[36m[1mi [22m[39m deploying [1mstorage, firestore, hosting[22m
+[36m[1mi  storage:[22m[39m ensuring required API [1mfirebasestorage.googleapis.com[22m is enabled...
+
+[1m[31mError:[39m[22m Firebase Storage has not been set up on project '[1mlost-and-found-a6dcc[22m'. Go to https://console.firebase.google.com/project/lost-and-found-a6dcc/storage and click 'Get Started' to set up Firebase Storage.

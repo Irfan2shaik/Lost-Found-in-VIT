@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="VIT Lost & Found Portal - A secure platform for VIT students to report and claim lost and found items.">
+    <title>VIT Lost & Found Portal</title>
+    <!-- SEO Optimization Meta Tags -->
+    <meta name="keywords" content="VIT, Vellore Institute of Technology, Lost and Found, Student Portal">
+    <meta name="author" content="VIT Student Platform">
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar" role="navigation" aria-label="Main Navigation">
+        <div class="nav-container">
+            <a href="#" class="logo">Lost<strong>&</strong>Found</a>
+            <ul class="nav-links">
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#report-lost">Report Lost</a></li>
+                <li><a href="#report-found">Report Found</a></li>
+                <li><a href="#browse">Browse Items</a></li>
+                <li><a href="#my-reports">My Reports</a></li>
+                <li>
+                    <div id="auth-container">
+                        <button id="btn-auth" class="btn-login ripple">Login</button>
+                        <div id="user-profile-nav" class="hidden"
+                            style="display: flex; align-items: center; gap: 12px; cursor: pointer; padding: 0.5rem 0;">
+                            <img id="nav-profile-pic" src="" alt="Profile"
+                                style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);">
+                            <span id="nav-profile-name"
+                                style="font-weight: 600; font-size: 1rem; color: var(--text-main);"></span>
+                            <div id="profile-dropdown" class="hidden"
+                                style="position: absolute; background: white; border: 1px solid var(--border); box-shadow: var(--shadow-md); border-radius: 8px; width: 150px; display: flex; flex-direction: column; z-index: 1000; overflow: hidden; margin-top: 10px;">
+                                <a href="#my-reports"
+                                    style="padding: 12px 15px; border-bottom: 1px solid var(--border); font-size: 0.9rem; color: var(--text-main); font-weight: 500;">My
+                                    Reports</a>
+                                <button id="btn-logout"
+                                    style="padding: 12px 15px; text-align: left; background: none; border: none; cursor: pointer; width: 100%; color: var(--danger); font-size: 0.9rem; font-weight: 600;">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="nav-controls">
+                <button class="hamburger" aria-label="Toggle Navigation">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero section-reveal">
+            <div class="hero-content">
+                <h1 class="slide-down-anim">Lost or Found Something?<br><span>We've Got You.</span></h1>
+                <p class="fade-in-anim delay-1">Helping VIT students reconnect with their lost belongings</p>
+                <div class="buttons fade-in-anim delay-2">
+                    <button class="btn primary" onclick="window.location.href='#report-lost'">Report Lost Item</button>
+                    <button class="btn secondary" onclick="window.location.href='#report-found'">Report Found
+                        Item</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Report Lost Item Section -->
+        <section id="report-lost" class="section bg-light section-reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Report a Lost Item</h2>
+                    <p>Provide details to help others identify your lost item.</p>
+                </div>
+                <!-- Form is outside because of length limitations if inside same tag in previous draft, wait, length is fine -->
+                <form id="form-lost" class="form-card">
+                    <div class="form-group">
+                        <label for="lost-name">Item Name *</label>
+                        <input type="text" id="lost-name" required placeholder="e.g., Blue Tupperware Bottle"
+                            class="focus-anim">
+                    </div>
+                    <div class="form-group">
+                        <label for="lost-category">Category *</label>
+                        <select id="lost-category" required class="focus-anim">
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="documents">ID/Documents</option>
+                            <option value="stationery">Stationery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="lost-desc">Description *</label>
+                        <textarea id="lost-desc" rows="4" required
+                            placeholder="Provide specific details, color, brand..." class="focus-anim"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lost-location">Location Lost *</label>
+                            <input type="text" id="lost-location" required placeholder="e.g., SJT 3rd Floor"
+                                class="focus-anim">
+                        </div>
+                        <div class="form-group">
+                            <label for="lost-date">Date Lost *</label>
+                            <input type="text" id="lost-date" required class="focus-anim" placeholder="Select Date...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lost-image">Upload Image (Optional)</label>
+                            <input type="file" id="lost-image" accept="image/*" class="focus-anim file-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="lost-phone">Contact Number *</label>
+                            <input type="tel" id="lost-phone" required pattern="[0-9]{10,}" title="Minimum 10 digits"
+                                placeholder="e.g., 9876543210" class="focus-anim">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Secret Questions (for verification when claimed) *</label>
+                        <input type="text" id="lost-sq1" class="mb-2 focus-anim" required
+                            placeholder="Q1: What is written on the back?">
+                        <input type="text" id="lost-sq2" required placeholder="Q2: What is the lock screen wallpaper?"
+                            class="focus-anim">
+                    </div>
+                    <button type="submit" class="btn primary btn-block ripple mt-2">Submit Report</button>
+                    <div class="form-message hidden" style="text-align:center; padding-top:1rem; color:var(--success);">
+                        Report Submitted Successfully!</div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Report Found Item Section -->
+        <section id="report-found" class="section section-reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Report a Found Item</h2>
+                    <p>Help return an item to its rightful owner.</p>
+                </div>
+                <form id="form-found" class="form-card">
+                    <div class="form-group">
+                        <label for="found-name">Item Name *</label>
+                        <input type="text" id="found-name" required placeholder="e.g., Scientific Calculator"
+                            class="focus-anim">
+                    </div>
+                    <div class="form-group">
+                        <label for="found-category">Category *</label>
+                        <select id="found-category" required class="focus-anim">
+                            <option value="" disabled selected>Select a category</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="accessories">Accessories</option>
+                            <option value="documents">ID/Documents</option>
+                            <option value="stationery">Stationery</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="found-desc">Description *</label>
+                        <textarea id="found-desc" rows="4" required
+                            placeholder="Provide basic details, DO NOT reveal specific secrets..."
+                            class="focus-anim"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="found-location">Location Found *</label>
+                            <input type="text" id="found-location" required placeholder="e.g., TT Food Court"
+                                class="focus-anim">
+                        </div>
+                        <div class="form-group">
+                            <label for="found-date">Date Found *</label>
+                            <input type="text" id="found-date" required class="focus-anim" placeholder="Select Date...">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="found-current-location">Where is the item now? *</label>
+                        <input type="text" id="found-current-location" required
+                            placeholder="e.g., Handed over to TT Security" class="focus-anim">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="found-image">Upload Image (Optional)</label>
+                            <input type="file" id="found-image" accept="image/*" class="focus-anim file-input">
+                        </div>
+                        <div class="form-group">
+                            <label for="found-phone">Contact Number *</label>
+                            <input type="tel" id="found-phone" required pattern="[0-9]{10,}" title="Minimum 10 digits"
+                                placeholder="e.g., 9876543210" class="focus-anim">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Set 2 Secret Questions (owner must answer to claim) *</label>
+                        <input type="text" id="found-sq1" class="mb-2 focus-anim" required
+                            placeholder="Q1: e.g. What is the brand name?">
+                        <input type="text" id="found-sq2" required
+                            placeholder="Q2: e.g. Is there any scratch on the screen?" class="focus-anim">
+                    </div>
+                    <button type="submit" class="btn primary btn-block ripple mt-2">Submit Report</button>
+                    <div class="form-message hidden" style="text-align:center; padding-top:1rem; color:var(--success);">
+                        Report Submitted Successfully!</div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Browse Items Section -->
+        <section id="browse" class="section bg-light section-reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Browse Items</h2>
+                    <p>Search for lost or reported found items.</p>
+                </div>
+
+                <div class="browse-controls">
+                    <input type="text" id="search-input" placeholder="Search by name or location..." class="focus-anim">
+                    <select id="filter-status" class="focus-anim">
+                        <option value="all">All Status</option>
+                        <option value="lost">Lost</option>
+                        <option value="found">Found</option>
+                    </select>
+                    <select id="filter-category" class="focus-anim">
+                        <option value="all">All Categories</option>
+                        <option value="electronics">Electronics</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="documents">ID/Documents</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="item-grid" id="item-grid">
+                    <!-- Cards generated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- My Reports Section -->
+        <section id="my-reports" class="section section-reveal">
+            <div class="container">
+                <div class="section-header">
+                    <h2>My Reports</h2>
+                    <p>Track the status of items you have reported.</p>
+                </div>
+                <div class="my-reports-list" id="my-reports-list">
+                    <!-- Items generated dynamically via JS -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Claim Modal -->
+    <div id="claim-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
+        <div class="modal-content scale-in">
+            <span class="close-modal" aria-label="Close Modal">&times;</span>
+            <h3 id="modal-item-title">Claim Item</h3>
+            <p class="text-muted mb-4">Please answer the secret questions to verify ownership.</p>
+
+            <form id="form-claim">
+                <div class="form-group">
+                    <label id="modal-q1-label" for="modal-a1">Question 1</label>
+                    <input type="text" id="modal-a1" required class="focus-anim">
+                </div>
+                <div class="form-group">
+                    <label id="modal-q2-label" for="modal-a2">Question 2</label>
+                    <input type="text" id="modal-a2" required class="focus-anim">
+                </div>
+                <button type="submit" class="btn primary btn-block ripple mt-2">Verify & Claim</button>
+                <div id="claim-error" class="error-msg hidden">Incorrect answers. Please try again.</div>
+                <div id="claim-success" class="success-msg hidden">Verification successful! The reporter's contact info
+                    has been sent to your email.</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="edit-title">
+        <div class="modal-content scale-in">
+            <span class="close-modal edit-close" aria-label="Close Modal">&times;</span>
+            <h3 id="edit-title">Edit Item</h3>
+            <form id="form-edit">
+                <input type="hidden" id="edit-id">
+                <div class="form-group">
+                    <label for="edit-name">Item Name *</label>
+                    <input type="text" id="edit-name" required class="focus-anim">
+                </div>
+                <div class="form-group">
+                    <label for="edit-desc">Description *</label>
+                    <textarea id="edit-desc" rows="3" required class="focus-anim"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-location">Location *</label>
+                        <input type="text" id="edit-location" required class="focus-anim">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-phone">Contact Number *</label>
+                        <input type="tel" id="edit-phone" required pattern="[0-9]{10,}" title="Minimum 10 digits"
+                            class="focus-anim">
+                    </div>
+                </div>
+                <button type="submit" id="edit-submit-btn" class="btn primary btn-block ripple mt-2">Save
+                    Changes</button>
+                <div id="edit-error" class="error-msg hidden"></div>
+                <div id="edit-success" class="success-msg hidden">Item updated successfully!</div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-col">
+                <div class="logo footnote-logo">Lost<strong>&</strong>Found</div>
+                <p>Connecting VITians with their lost belongings.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <a href="#hero">Home</a>
+                <a href="#report-lost">Report Lost</a>
+                <a href="#browse">Browse Items</a>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Support</h4>
+                <p>Email: kashifkash2000@gmail.com</p>
+                <p>Phone: +91 8688862476</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 VIT Lost & Found Portal. Not an official VIT Website.</p>
+        </div>
+    </footer>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+        <div class="modal-content scale-in">
+            <span class="close-modal auth-close" aria-label="Close Modal">&times;</span>
+            <h3 id="auth-title">Student Login</h3>
+            <p class="text-muted mb-4">Please use your @vitstudent.ac.in email</p>
+
+            <form id="form-auth">
+                <div class="form-group">
+                    <label for="auth-email">VIT Email *</label>
+                    <input type="email" id="auth-email" required placeholder="e.g. name.surname202X@vitstudent.ac.in"
+                        class="focus-anim">
+                </div>
+                <div class="form-group">
+                    <label for="auth-password">Password *</label>
+                    <input type="password" id="auth-password" required minlength="6" class="focus-anim">
+                </div>
+                <!-- Hidden by default, shown for signup -->
+                <div class="form-group hidden" id="signup-extra">
+                    <label for="auth-confirm">Confirm Password *</label>
+                    <input type="password" id="auth-confirm" minlength="6" class="focus-anim">
+                </div>
+
+                <button type="submit" id="auth-submit-btn" class="btn primary btn-block ripple mt-2">Login</button>
+
+                <div class="auth-divider">
+                    <span>OR</span>
+                </div>
+
+                <button type="button" id="google-auth-btn" class="btn btn-google btn-block ripple">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google Logo"
+                        class="google-logo"> Continue with Google
+                </button>
+
+                <div id="auth-error" class="error-msg hidden"></div>
+                <div id="auth-success" class="success-msg hidden"></div>
+
+                <div style="text-align: center; margin-top: 1rem; font-size: 0.9rem;">
+                    <span id="auth-switch-text">New student?</span>
+                    <a href="#" id="auth-switch-btn" style="color: var(--primary); font-weight: 600;">Sign up</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
